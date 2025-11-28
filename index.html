@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backstage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="fade-in">
+
+<nav class="navbar">
+    <div class="nav-left glow-logo">BACKSTAGE</div>
+    <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#djs-section">DJs</a></li>
+    </ul>
+    <div class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="left">
+        <h1>Share your mixes, connect and create.</h1>
+        <a href="join.html" class="btn fade-link">ENTER BACKSTAGE</a>
+    </div>
+    <div class="right">
+        <img src="BACKSTAGE LOGO.png" class="bslogo" alt="Backstage Logo">
+    </div>
+</section>
+
+<section class="about" id="about">
+    <h2>About Backstage</h2>
+    <p>Backstage is a platform for DJs to showcase their mixes, connect with audiences, and land gigs. It’s a space that celebrates DJ culture, helping artists grow, collaborate, and get noticed.</p>
+</section>
+
+<section class="djs-section" id="djs-section">
+    <div class="dj-bg-fade" id="dj-bg"></div>
+    <h2>Our DJs</h2>
+    <div class="dj-grid" id="dj-grid"></div>
+</section>
+
+<section class="cta" id="cta">
+    <h2>Ready to Go Backstage?</h2>
+    <a href="join.html" class="btn fade-link">Join Now</a>
+</section>
+
+<footer>
+    <p>© 2025 Backstage. All Rights Reserved.</p>
+    <p>Founded by Joachim Gonzales</p>
+</footer>
+
+<script>
+const burger = document.querySelector('.burger');
+const nav = document.querySelector('.nav-links');
+
+burger.addEventListener('click', () => {
+    nav.classList.toggle('nav-active');
+    burger.classList.toggle('toggle');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        nav.classList.remove('nav-active');
+        burger.classList.remove('toggle');
+    });
+});
+
+const djs = [
+    { name: "DJ Gonza", testimonial: "Gonza is a versatile DJ with a talent for setting the perfect vibe." },
+    { name: "DJ Julia", testimonial: "DJ Julia, known for her beats and beauty, wins hearts on and off stage." },
+    { name: "DJ Azrael", testimonial: "DJ Azrael started as a guitarist and now connects with crowds via turntables." },
+    { name: "DJ Cleo", testimonial: "DJ Cleo is an upcoming DJ with top-notch performances." }
+];
+
+const djGrid = document.getElementById('dj-grid');
+djs.forEach(dj => {
+    const card = document.createElement('div');
+    card.classList.add('dj-card');
+    card.innerHTML = `<h3>${dj.name}</h3><p>${dj.testimonial}</p>`;
+    djGrid.appendChild(card);
+});
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.dj-card').forEach(el => observer.observe(el));
+
+const djsSection = document.querySelector('.djs-section');
+const djBgFade = document.getElementById('dj-bg');
+const djImages = {
+    "DJ Gonza": "gonza.jpg",
+    "DJ Julia": "julia.jpg",
+    "DJ Azrael": "azrael.jpg",
+    "DJ Cleo": "cleo.jpg"
+};
+
+let isHoveringCard = false;
+
+document.querySelectorAll('.dj-card').forEach(card => {
+    const djName = card.querySelector('h3').textContent;
+    const djImage = djImages[djName];
+
+    card.addEventListener('mouseenter', () => {
+        isHoveringCard = true;
+        djBgFade.style.backgroundImage = `url('${djImage}')`;
+        djBgFade.classList.add('visible');
+    });
+
+    card.addEventListener('mouseleave', () => {
+        isHoveringCard = false;
+        setTimeout(() => {
+            if (!isHoveringCard) djBgFade.classList.remove('visible');
+        }, 50);
+    });
+});
+
+document.querySelectorAll('.fade-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+            window.location = link.href;
+        }, 500);
+    });
+});
+</script>
+
+</body>
+</html>
