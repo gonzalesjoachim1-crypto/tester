@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Backstage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="fade-in">
+
+<nav class="navbar">
+    <div class="nav-left glow-logo">BACKSTAGE</div>
+    <ul class="nav-links">
+        <li><a href="index.html#hero" class="fade-link">Home</a></li>
+        <li><a href="index.html#about" class="fade-link">About</a></li>
+        <li><a href="index.html#djs-section" class="fade-link">DJs</a></li>
+    </ul>
+</nav>
+
+<section class="hero join-hero">
+    <div class="left">
+        <h1>JOIN BACKSTAGE</h1>
+        <p>Submit your email and set mixes to be considered by clubs in Manila.</p>
+    </div>
+</section>
+
+<section class="join-section">
+    <form action="#" method="post" enctype="multipart/form-data" class="join-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <label for="mix">Upload Your Set Mix:</label>
+        <input type="file" name="mix" accept=".mp3,.wav" required>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2025 Backstage. All Rights Reserved.</p>
+    <p>Founded by Joachim Gonzales</p>
+</footer>
+
+<script>
+document.querySelectorAll('.fade-link').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+            window.location = link.href;
+        }, 500);
+    });
+});
+</script>
+
+</body>
+</html>
+
